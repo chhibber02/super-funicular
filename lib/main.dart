@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:super_funicular/pages/events.dart';
 import 'item.dart';
 import 'item_bloc.dart';
 
@@ -15,12 +15,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BLoC List Example',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Inter',
       ),
       home: BlocProvider(
         create: (context) => ItemBloc(),
-        child: const HomeScreen(),
+        child: const EventsPage(),
       ),
     );
   }
@@ -35,7 +37,14 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BLoC List Example'),
+        title: GestureDetector(
+          onTap: ()=> Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const EventsPage(),
+          ),
+          ),
+          child: const Text('BLoC List Example'),
+        ),
       ),
       body: ListView.builder(
         itemCount: itemBloc.state.length,
